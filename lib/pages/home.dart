@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:insta_clone/pages/util/bubble_stories.dart';
+import 'package:insta_clone/pages/util/user_posts.dart';
 
 class UserHome extends StatelessWidget {
-  const UserHome({super.key});
+  UserHome({super.key});
+  final List people = ['hello', 'yoyoyo', 'heyhey', 'nicee', 'xyz', 'okbye'];
 
   @override
   Widget build(BuildContext context) {
@@ -27,37 +29,28 @@ class UserHome extends StatelessWidget {
               )
             ],
           )),
-      body: Column(
-        children: [
-          //STORIES
-          SizedBox(
-            height: 130,
-            child: ListView(
+      body: Column(children: [
+        //STORIES
+        // ignore: sized_box_for_whitespace
+        Container(
+          height: 130,
+          child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              children: const [
-                BubbleStories(
-                  text: 'hello',
-                ),
-                BubbleStories(
-                  text: 'yoyoyo',
-                ),
-                BubbleStories(
-                  text: 'heyhey',
-                ),
-                BubbleStories(
-                  text: 'nicee',
-                ),
-                BubbleStories(
-                  text: 'xyz',
-                ),
-                BubbleStories(
-                  text: 'okbye',
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+              itemCount: people.length,
+              itemBuilder: (context, index) {
+                return BubbleStories(text: people[index]);
+              }),
+        ),
+        //POSTS
+        Expanded(
+          child: ListView.builder(
+            itemCount: people.length,
+            itemBuilder: (context, index) {
+              return UserPosts(name: people[index]);
+            },
+          ),
+        )
+      ]),
     );
   }
 }
